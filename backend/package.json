@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js",
+    "start": "npx prisma db push --accept-data-loss && node server.js",
     "db:migrate": "prisma migrate deploy",
     "db:generate": "prisma generate",
     "db:seed": "node prisma/seed.js",
