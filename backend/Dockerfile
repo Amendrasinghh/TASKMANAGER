@@ -1,9 +1,9 @@
 FROM node:20-alpine
 WORKDIR /app
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm ci --only=production
-COPY prisma ./prisma
+COPY backend/prisma ./prisma
 RUN npx prisma generate
-COPY . .
-EXPOSE 5000
+COPY backend/ .
+EXPOSE 5001
 CMD ["sh", "-c", "npx prisma db push --accept-data-loss && node server.js"]
