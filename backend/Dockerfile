@@ -1,5 +1,5 @@
 # Stage 1: Build Frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:20-slim AS frontend-builder
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm ci
@@ -9,7 +9,8 @@ ENV VITE_API_URL=/api
 RUN npm run build
 
 # Stage 2: Build Backend
-FROM node:20-alpine
+FROM node:20-slim
+RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app/backend
 COPY backend/package*.json ./
 RUN npm ci --only=production
